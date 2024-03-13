@@ -1,11 +1,18 @@
-// use leptos::*;
+#![allow(dead_code)]
 
+// use leptos::*;
 enum Status {
     Alive,
     Dead,
 }
 
-impl Status {}
+impl Status {
+    #[allow(dead_code)]
+    fn ali() -> i32 {
+        // let ali: Option<i32> = None;
+        5
+    }
+}
 
 struct Square(Status);
 
