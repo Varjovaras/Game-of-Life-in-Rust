@@ -8,8 +8,8 @@ impl Status {
     #[must_use]
     pub const fn dead_or_alive(&self) -> &str {
         match self {
-            Status::Alive => "A",
-            Status::Dead => "D",
+            Self::Alive => "A",
+            Self::Dead => "D",
         }
     }
 }
