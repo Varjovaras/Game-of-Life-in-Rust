@@ -33,7 +33,28 @@ pub fn App() -> impl IntoView {
 
     view! {
         <div class="text-center">
+
             {squares}
+            {game_signal
+                .get()
+                .board
+                .squares
+                .into_iter()
+                .map(|row| {
+                    view! {
+                        <ul>
+                            <li>
+                                {row
+                                    .into_iter()
+                                    .map(|square| {
+                                        view! { <span>{square.current_status()} "   "</span> }
+                                    })
+                                    .collect_view()}
+                            </li>
+                        </ul>
+                    }
+                })
+                .collect::<Vec<_>>()}
             <button
                 class="border border-t-4"
                 on:click=move |_| {

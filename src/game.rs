@@ -49,6 +49,7 @@ impl Game {
         }
     }
 
+    #[must_use]
     pub fn next_generation(&mut self) -> Self {
         //kill all
         for row in &mut self.board.squares {

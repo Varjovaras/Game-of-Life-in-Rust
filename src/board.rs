@@ -7,11 +7,11 @@ pub struct Board {
 
 impl Board {
     #[must_use]
-    pub fn new(size: usize) -> Self {
+    pub fn new(size: i32) -> Self {
         let squares: Vec<Vec<Square>> = (0..size)
             .map(|i| {
                 (0..size)
-                    .map(|j| Square::new((i * size + j) as i32, Status::Dead))
+                    .map(|j| Square::new(i * size + j, Status::Dead))
                     .collect()
             })
             .collect();
@@ -19,12 +19,12 @@ impl Board {
     }
 
     #[must_use]
-    fn new_with_every_fifth_alive(size: usize) -> Self {
+    fn new_with_every_fifth_alive(size: i32) -> Self {
         let squares: Vec<Vec<Square>> = (0..size)
             .map(|i| {
                 (0..size)
                     .map(|j| {
-                        let id = (i * size + j) as i32;
+                        let id = i * size + j;
                         let status = if id % 5 == 0 {
                             Status::Alive
                         } else {

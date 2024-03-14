@@ -26,12 +26,13 @@ impl Square {
         Self { status, id }
     }
 
+    #[must_use]
     pub fn current_status(&self) -> String {
         self.status.current_status().into()
     }
 
     pub fn kill(&mut self) {
-        self.status = Status::Dead;
+        self.status = Status::Alive;
     }
 }
 

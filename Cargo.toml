@@ -4,5 +4,14 @@ version = "0.1.0"
 edition = "2021"
 
 
+[profile.release]
+opt-level = 'z'   # Optimize for size.
+lto = true        # Enable Link Time Optimisation
+codegen-units = 1 # Reduced to increase optimisations.
+panic = 'abort'   # Abort on panic
+strip = "symbols" # Strip symbols from binary
+
+
 [dependencies]
 leptos = { version = "0.6.9", features = ["csr", "nightly"] }
+

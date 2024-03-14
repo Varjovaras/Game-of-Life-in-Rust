@@ -17,8 +17,11 @@ pub mod square;
 //
 
 fn main() {
-    let game = Game::default();
+    let mut game = Game::default();
     game.print_to_terminal();
-    mount_to_body(|| view! { <App /> });
+    game = game.next_generation();
+    println!("------");
+    game.print_to_terminal();
+    mount_to_body(|| view! { <App/> });
 }
 //trunk serve --open
