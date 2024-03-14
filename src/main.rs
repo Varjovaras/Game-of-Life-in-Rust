@@ -6,7 +6,6 @@
 #![warn(clippy::unwrap_used)]
 
 use app::App;
-use game::Game;
 
 use leptos::{mount_to_body, view};
 
@@ -15,29 +14,14 @@ pub mod board;
 pub mod cell;
 pub mod components;
 pub mod game;
+pub mod terminal;
 
 // use leptos::*;
 //
 
 fn main() {
     console_error_panic_hook::set_once();
-    let mut game = Game::new(4);
-    game.board.squares[0][1].revive();
-    game.print_to_terminal();
-    game = game.next_generation();
-    println!("------");
-    let mut i = 0;
-
-    loop {
-        game = game.next_generation();
-
-        game.print_to_terminal();
-        i += 1;
-        if i == 10 {
-            break;
-        }
-        println!("------");
-    }
+    terminal::run();
     mount_to_body(|| view! { <App/> });
 }
 //trunk serve --open

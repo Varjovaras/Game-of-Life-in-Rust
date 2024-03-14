@@ -11,8 +11,11 @@ panic = 'abort'   # Abort on panic
 strip = "symbols" # Strip symbols from binary
 
 
+# [package.metadata.leptos]
+# # ....
+# lib-profile-release = "wasm-release"
+
 [dependencies]
 console_error_panic_hook = "0.1.7"
 console_log = { version = "1", features = ["color"] }
 leptos = { version = "0.6.9", features = ["csr", "nightly"] }
-

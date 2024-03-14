@@ -19,13 +19,13 @@ impl Board {
     }
 
     #[must_use]
-    pub fn new_with_every_fifth_alive(size: i32) -> Self {
+    pub fn new_with_every_fourth_alive(size: i32) -> Self {
         let squares: Vec<Vec<Cell>> = (0..size)
             .map(|i| {
                 (0..size)
                     .map(|j| {
                         let id = i * size + j;
-                        let status = if id % 5 == 0 {
+                        let status = if id % 4 == 0 {
                             Status::Alive
                         } else {
                             Status::Dead
@@ -64,6 +64,6 @@ impl Board {
 
 impl Default for Board {
     fn default() -> Self {
-        Self::new_with_every_fifth_alive(16)
+        Self::new_with_every_fourth_alive(16)
     }
 }

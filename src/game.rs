@@ -40,10 +40,17 @@ pub struct Game {
 }
 
 impl Game {
+    /// Creates a new [`Game`].
+    ///
+    /// # Panics
+    ///
+    /// Panics if `board_size` is less than 1.
     #[must_use]
     pub fn new(board_size: i32) -> Self {
+        assert!(board_size >= 1, "Board size must be greater than 0");
+
         Self {
-            board: Board::new_with_every_fifth_alive(board_size),
+            board: Board::new_with_every_fourth_alive(board_size),
             rules: Rules::default(),
             generation: 0,
         }
