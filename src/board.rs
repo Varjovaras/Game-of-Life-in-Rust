@@ -1,17 +1,17 @@
-use crate::square::{Square, Status};
+use crate::cell::{Cell, Status};
 
 #[derive(Debug, Clone)]
 pub struct Board {
-    pub squares: Vec<Vec<Square>>,
+    pub squares: Vec<Vec<Cell>>,
 }
 
 impl Board {
     #[must_use]
     pub fn new(size: i32) -> Self {
-        let squares: Vec<Vec<Square>> = (0..size)
+        let squares: Vec<Vec<Cell>> = (0..size)
             .map(|i| {
                 (0..size)
-                    .map(|j| Square::new(i * size + j, Status::Dead))
+                    .map(|j| Cell::new(i * size + j, Status::Dead))
                     .collect()
             })
             .collect();
@@ -19,8 +19,8 @@ impl Board {
     }
 
     #[must_use]
-    fn new_with_every_fifth_alive(size: i32) -> Self {
-        let squares: Vec<Vec<Square>> = (0..size)
+    pub fn new_with_every_fifth_alive(size: i32) -> Self {
+        let squares: Vec<Vec<Cell>> = (0..size)
             .map(|i| {
                 (0..size)
                     .map(|j| {
@@ -30,7 +30,7 @@ impl Board {
                         } else {
                             Status::Dead
                         };
-                        Square::new(id, status)
+                        Cell::new(id, status)
                     })
                     .collect()
             })
@@ -42,8 +42,8 @@ impl Board {
     #[allow(clippy::cast_sign_loss)]
     #[allow(clippy::cast_possible_truncation)]
     #[allow(clippy::cast_possible_wrap)]
-    pub fn get_adjacent_cells(&self, i: i32, j: i32) -> Vec<&Square> {
-        let mut adjacent_cells: Vec<&Square> = Vec::new();
+    pub fn get_adjacent_cells(&self, i: i32, j: i32) -> Vec<&Cell> {
+        let mut adjacent_cells: Vec<&Cell> = Vec::new();
         if self.squares.is_empty() {
             return adjacent_cells;
         }

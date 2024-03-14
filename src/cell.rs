@@ -1,4 +1,4 @@
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Status {
     Alive,
     Dead,
@@ -15,12 +15,12 @@ impl Status {
 }
 
 #[derive(Debug, Clone)]
-pub struct Square {
+pub struct Cell {
     pub status: Status,
     pub id: i32,
 }
 
-impl Square {
+impl Cell {
     #[must_use]
     pub const fn new(id: i32, status: Status) -> Self {
         Self { status, id }
@@ -29,6 +29,16 @@ impl Square {
     #[must_use]
     pub fn current_status(&self) -> String {
         self.status.current_status().into()
+    }
+
+    #[must_use]
+    pub fn is_alive(&self) -> bool {
+        self.status == Status::Alive
+    }
+
+    #[must_use]
+    pub fn is_dead(&self) -> bool {
+        self.status == Status::Dead
     }
 
     pub fn kill(&mut self) {
@@ -40,7 +50,7 @@ impl Square {
     }
 }
 
-impl Default for Square {
+impl Default for Cell {
     fn default() -> Self {
         Self::new(0, Status::Dead)
     }
