@@ -1,13 +1,16 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
 #![allow(clippy::empty_docs)]
+#![warn(clippy::pedantic)]
+#![warn(clippy::nursery)]
+#![warn(clippy::unwrap_used)]
 
 use app::App;
 use game::Game;
-pub mod app;
 
 use leptos::{mount_to_body, view};
 
+pub mod app;
 pub mod board;
 pub mod components;
 pub mod game;

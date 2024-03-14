@@ -38,7 +38,28 @@ impl Board {
         Self { squares }
     }
 
-    // fn generation(&self) {}
+    #[must_use]
+    #[allow(clippy::cast_sign_loss)]
+    #[allow(clippy::cast_possible_truncation)]
+    #[allow(clippy::cast_possible_wrap)]
+    pub fn get_adjacent_cells(&self, i: i32, j: i32) -> Vec<&Square> {
+        let mut adjacent_cells: Vec<&Square> = Vec::new();
+        if self.squares.is_empty() {
+            return adjacent_cells;
+        }
+
+        let size = self.squares.len() as i32;
+        for x in -1..=1 {
+            for y in -1..=1 {
+                let new_i = i + x;
+                let new_j = j + y;
+                if new_i >= 0 && new_i < size && new_j >= 0 && new_j < size && !(x == 0 && y == 0) {
+                    adjacent_cells.push(&self.squares[new_i as usize][new_j as usize]);
+                }
+            }
+        }
+        adjacent_cells
+    }
 }
 
 impl Default for Board {

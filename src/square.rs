@@ -32,6 +32,10 @@ impl Square {
     }
 
     pub fn kill(&mut self) {
+        self.status = Status::Dead;
+    }
+
+    pub fn revive(&mut self) {
         self.status = Status::Alive;
     }
 }
