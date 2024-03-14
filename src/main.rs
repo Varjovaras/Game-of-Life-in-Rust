@@ -17,6 +17,7 @@ pub mod square;
 //
 
 fn main() {
+    console_error_panic_hook::set_once();
     let mut game = Game::default();
     game.print_to_terminal();
     game = game.next_generation();

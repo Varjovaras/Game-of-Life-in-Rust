@@ -50,15 +50,17 @@ impl Game {
     }
 
     #[must_use]
-    pub fn next_generation(&mut self) -> Self {
+    pub fn next_generation(&self) -> Self {
+        let mut new_self = self.clone();
+    
         //kill all
-        for row in &mut self.board.squares {
+        for row in &mut new_self.board.squares {
             for square in row {
                 square.kill();
             }
         }
-        self.generation += 1;
-        self.clone()
+        new_self.generation += 1;
+        new_self
     }
 
     pub fn print_to_terminal(&self) {

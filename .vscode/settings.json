@@ -1,3 +1,10 @@
 {
-	"rust-analyzer.rustfmt.overrideCommand": ["leptosfmt", "--stdin", "--rustfmt"]
+	"rust-analyzer.rustfmt.overrideCommand": [
+		"leptosfmt",
+		"--stdin",
+		"--rustfmt"
+	],
+	"rust-analyzer.procMacro.ignored": {
+		"leptos_macro": ["component", "server"]
+	}
 }
