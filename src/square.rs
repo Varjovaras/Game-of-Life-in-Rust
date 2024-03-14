@@ -6,7 +6,7 @@ pub enum Status {
 
 impl Status {
     #[must_use]
-    pub const fn dead_or_alive(&self) -> &str {
+    pub const fn current_status(&self) -> &str {
         match self {
             Self::Alive => "A",
             Self::Dead => "D",
@@ -17,19 +17,26 @@ impl Status {
 #[derive(Debug, Clone)]
 pub struct Square {
     pub status: Status,
+    pub id: i32,
 }
 
 impl Square {
     #[must_use]
-    pub const fn new() -> Self {
-        Self {
-            status: Status::Dead,
-        }
+    pub const fn new(id: i32, status: Status) -> Self {
+        Self { status, id }
+    }
+
+    pub fn current_status(&self) -> String {
+        self.status.current_status().into()
+    }
+
+    pub fn kill(&mut self) {
+        self.status = Status::Dead;
     }
 }
 
 impl Default for Square {
     fn default() -> Self {
-        Self::new()
+        Self::new(0, Status::Dead)
     }
 }

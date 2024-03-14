@@ -1,6 +1,6 @@
-use crate::square::Square;
+use crate::square::{Square, Status};
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Board {
     pub squares: Vec<Vec<Square>>,
 }
@@ -8,7 +8,33 @@ pub struct Board {
 impl Board {
     #[must_use]
     pub fn new(size: usize) -> Self {
-        let squares = vec![vec![Square::new(); size]; size];
+        let squares: Vec<Vec<Square>> = (0..size)
+            .map(|i| {
+                (0..size)
+                    .map(|j| Square::new((i * size + j) as i32, Status::Dead))
+                    .collect()
+            })
+            .collect();
+        Self { squares }
+    }
+
+    #[must_use]
+    fn new_with_every_fifth_alive(size: usize) -> Self {
+        let squares: Vec<Vec<Square>> = (0..size)
+            .map(|i| {
+                (0..size)
+                    .map(|j| {
+                        let id = (i * size + j) as i32;
+                        let status = if id % 5 == 0 {
+                            Status::Alive
+                        } else {
+                            Status::Dead
+                        };
+                        Square::new(id, status)
+                    })
+                    .collect()
+            })
+            .collect();
         Self { squares }
     }
 
@@ -17,7 +43,6 @@ impl Board {
 
 impl Default for Board {
     fn default() -> Self {
-        let squares = vec![vec![Square::new(); 16]; 16];
-        Self { squares }
+        Self::new_with_every_fifth_alive(16)
     }
 }
