@@ -10,7 +10,7 @@ pub fn run() {
     let squares = args
         .get(1)
         .and_then(|arg| arg.parse::<i32>().ok())
-        .unwrap_or(8);
+        .unwrap_or(12);
 
     //make query into game::new(query)
     let mut game = Game::new(squares);
@@ -19,22 +19,40 @@ pub fn run() {
     console_error_panic_hook::set_once();
     // let mut game = Game::new(20);
     if squares > 1 {
-        game.board.squares[0][1].revive();
+        game.board.squares[1][1].revive();
+
+        game.board.squares[0][2].revive();
+        game.board.squares[0][3].revive();
+        game.board.squares[0][4].revive();
+        game.board.squares[0][6].revive();
+        game.board.squares[1][7].revive();
+        game.board.squares[3][3].revive();
     }
     game.print_to_terminal();
-    game = game.next_generation();
+
     let mut i = 0;
 
     loop {
-        game = game.next_generation();
-
+        if game.all_dead() {
+            println!("All dead");
+            println!("{i:?}");
+            break;
+        }
+        if let Some(new_game) = game.next_generation() {
+            game = new_game;
+        } else {
+            println!("No next generation");
+            println!("{i:?}");
+            break;
+        }
         i += 1;
-        if i % 1000 == 0 {
+
+        if i % 100 == 0 {
             game.print_to_terminal();
             println!("------");
             println!("{i:?}");
         }
-        if i == 10_000 {
+        if i == 1000 {
             game.print_to_terminal();
             println!("------");
             println!("{i:?}");

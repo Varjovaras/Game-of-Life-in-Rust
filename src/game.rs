@@ -50,7 +50,7 @@ impl Game {
         assert!(board_size >= 1, "Board size must be greater than 0");
 
         Self {
-            board: Board::new_with_every_fourth_alive(board_size),
+            board: Board::new_with_every_i_alive(board_size, 2),
             rules: Rules::default(),
             generation: 0,
         }
@@ -58,7 +58,7 @@ impl Game {
     #[must_use]
     #[allow(clippy::cast_possible_wrap)]
     #[allow(clippy::cast_possible_truncation)]
-    pub fn next_generation(&self) -> Self {
+    pub fn next_generation(&self) -> Option<Self> {
         let mut new_self = self.clone();
         let mut new_board = self.board.clone();
 
@@ -84,9 +84,21 @@ impl Game {
                 }
             }
         }
+        if new_self.board == new_board {
+            return None;
+        }
         new_self.board = new_board;
         new_self.generation += 1;
-        new_self
+        Some(new_self)
+    }
+
+    #[must_use]
+    pub fn all_dead(&self) -> bool {
+        self.board
+            .squares
+            .iter()
+            .flatten()
+            .all(|cell: &crate::cell::Cell| cell.is_dead())
     }
 
     pub fn print_to_terminal(&self) {

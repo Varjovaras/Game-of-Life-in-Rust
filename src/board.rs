@@ -1,6 +1,6 @@
-use crate::cell::{Cell, Status};
+use crate::{cell::Cell, status::Status};
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Board {
     pub squares: Vec<Vec<Cell>>,
 }
@@ -39,6 +39,26 @@ impl Board {
     }
 
     #[must_use]
+    pub fn new_with_every_i_alive(size: i32, iter: i32) -> Self {
+        let squares: Vec<Vec<Cell>> = (0..size)
+            .map(|i| {
+                (0..size)
+                    .map(|j| {
+                        let id = i * size + j;
+                        let status = if id % iter == 0 {
+                            Status::Alive
+                        } else {
+                            Status::Dead
+                        };
+                        Cell::new(id, status)
+                    })
+                    .collect()
+            })
+            .collect();
+        Self { squares }
+    }
+
+    #[must_use]
     #[allow(clippy::cast_sign_loss)]
     #[allow(clippy::cast_possible_truncation)]
     #[allow(clippy::cast_possible_wrap)]
@@ -64,6 +84,6 @@ impl Board {
 
 impl Default for Board {
     fn default() -> Self {
-        Self::new_with_every_fourth_alive(16)
+        Self::new_with_every_i_alive(16, 2)
     }
 }

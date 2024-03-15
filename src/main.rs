@@ -14,6 +14,7 @@ pub mod board;
 pub mod cell;
 pub mod components;
 pub mod game;
+pub mod status;
 pub mod terminal;
 
 // use leptos::*;

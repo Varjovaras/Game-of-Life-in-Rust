@@ -9,10 +9,12 @@ pub fn App() -> impl IntoView {
     let (game_signal, set_game_signal) = create_signal(Game::default());
     // let (square_signal, set_square_signal) = create_signal(game_signal.get().board.squares);
     let (count, set_count) = create_signal(0);
+    let (game_over, set_game_over) = create_signal("");
 
     view! {
         <div class="text-center">
 
+        {game_over}
             {move || {
                 game_signal
                     .get()
@@ -41,7 +43,12 @@ pub fn App() -> impl IntoView {
                     set_count(3);
                     set_game_signal
                         .update(move |game| {
-                            *game = game.next_generation();
+                            match game.next_generation() {
+                                Some(new_game) => *game = new_game,
+                                None => {
+                                    set_game_over("game over");
+                                }
+                            }
                         });
                 }
             >
