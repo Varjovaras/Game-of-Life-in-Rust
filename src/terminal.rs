@@ -10,7 +10,7 @@ pub fn run() {
     let squares = args
         .get(1)
         .and_then(|arg| arg.parse::<i32>().ok())
-        .unwrap_or(12);
+        .unwrap_or(199);
 
     //make query into game::new(query)
     let mut game = Game::new(squares);
@@ -47,7 +47,7 @@ pub fn run() {
         }
         i += 1;
 
-        if i % 100 == 0 {
+        if i % 2 == 0 {
             game.print_to_terminal();
             println!("------");
             println!("{i:?}");

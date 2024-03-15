@@ -40,7 +40,7 @@ impl Board {
 
     #[must_use]
     pub fn new_with_every_i_alive(size: i32, iter: i32) -> Self {
-        let squares: Vec<Vec<Cell>> = (0..size)
+        let mut squares: Vec<Vec<Cell>> = (0..size)
             .map(|i| {
                 (0..size)
                     .map(|j| {
@@ -55,6 +55,9 @@ impl Board {
                     .collect()
             })
             .collect();
+        squares[0][1].status = Status::Alive;
+        squares[4][5].status = Status::Alive;
+
         Self { squares }
     }
 
@@ -84,6 +87,6 @@ impl Board {
 
 impl Default for Board {
     fn default() -> Self {
-        Self::new_with_every_i_alive(16, 2)
+        Self::new_with_every_i_alive(24, 3)
     }
 }
